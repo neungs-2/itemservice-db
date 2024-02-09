@@ -17,7 +17,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -94,7 +93,6 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
         boolean andFlag = false;
         if (StringUtils.hasText(itemName)) {
             sql += " item_name like concat('%',:itemName,'%')";
-            param.add(itemName);
             andFlag = true;
         }
 
@@ -103,11 +101,9 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
                 sql += " and";
             }
             sql += " price <= :maxPrice";
-            param.add(maxPrice);
         }
 
         log.info("sql={}", sql);
-
         return template.query(sql, param, itemRowMapper());
     }
 
