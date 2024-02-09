@@ -32,20 +32,19 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
 
     @Override
     public Item save(Item item) {
-        String sql = "insert into item(item_name, price, quantity) values (?,?,?)";
+        String sql = "insert into item (item_name, price, quantity) values ( ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(connection -> {
-            // 자동 증가 키
+//자동 증가 키
             PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
             ps.setString(1, item.getItemName());
             ps.setInt(2, item.getPrice());
             ps.setInt(3, item.getQuantity());
             return ps;
         }, keyHolder);
-
         long key = keyHolder.getKey().longValue();
         item.setId(key);
-        return null;
+        return item;
     }
 
     @Override
@@ -56,7 +55,7 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
 
     @Override
     public Optional<Item> findById(Long id) {
-        String sql = "select id, item_name, price, quantity where id = ?";
+        String sql = "select id, item_name, price, quantity from item where id = ?";
         try {
             Item item = template.queryForObject(sql, itemRowMapper(), id);
             return Optional.of(item);
@@ -104,7 +103,7 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
             item.setId(rs.getLong("id"));
             item.setItemName(rs.getString("item_name"));
             item.setPrice(rs.getInt("price"));
-            item.setPrice(rs.getInt("quantity"));
+            item.setQuantity(rs.getInt("quantity"));
             return item;
         });
     }

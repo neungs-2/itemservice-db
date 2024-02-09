@@ -1,6 +1,5 @@
 package hello.itemservice;
 
-import hello.itemservice.domain.Item;
 import hello.itemservice.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +18,8 @@ public class TestDataInit {
     @EventListener(ApplicationReadyEvent.class)
     public void initData() {
         log.info("test data init");
-        itemRepository.save(new Item("itemA", 10000, 10));
-        itemRepository.save(new Item("itemB", 20000, 20));
+//        itemRepository.save(new Item("itemA", 10000, 10));
+//        itemRepository.save(new Item("itemB", 20000, 20));
     }
 
 }
