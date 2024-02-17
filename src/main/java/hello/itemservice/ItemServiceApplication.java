@@ -28,6 +28,7 @@ public class ItemServiceApplication {
 		return new TestDataInit(itemRepository);
 	}
 
+	// 스프링은 별다른 설정이 없다면 임베디드 DB를 사용하기 때문에 application에서 DB 연결 정보를 주석처리하면 그냥 사용 가능하다.
 //	@Bean
 //	@Profile("test")
 //	public DataSource dataSource() {
