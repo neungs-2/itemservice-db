@@ -40,6 +40,6 @@ public class ItemServiceV2 implements ItemService {
 
     @Override
     public List<Item> findItems(ItemSearchCond cond) {
-        return itemRepositoryV2.findAll(cond);
+        return itemQueryRepositoryV2.findAll(cond);
     }
 }
